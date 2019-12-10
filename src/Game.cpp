@@ -59,7 +59,7 @@ void Game::loop () {
         for (int i = 0; i < civilizations.size (); i++) {
             bool civilization_still_playing = true;
             while (civilization_still_playing) {
-                world.render ();
+                render ();
                 std::cout << "=== " << civilizations [i].name << " ===" << std::endl;
                 displayCivilizationInformation ();
 
@@ -77,8 +77,10 @@ void Game::loop () {
         }
 
         for (int i = 0; i < civilizations.size (); i++) {
-            for (int j = 0; j < civilizations[i].cities.size (); j++) {
-                civilizations[i].cities[j].update_population (world);
+            for (int j = 0; j < civilizations [i].cities.size (); j++) {
+                civilizations [i].cities [j].update_population (world);
+
+                civilizations [i].production += civilizations [i].cities [j].total_production_yield;
             }
         }
 
@@ -93,6 +95,30 @@ void Game::loop () {
     }
 }
 
+void Game::render () {
+    for (int i = 0; i < world.map_size; i++) {
+        for (int j = 0; j < world.map_size; j++) {
+            int index = i + j * world.map_size;
+            int NOT_OWNED_BY_CIVILIZATION = -1;
+
+            if (world.tiles [index]->ownerIndex != NOT_OWNED_BY_CIVILIZATION) {
+                textGraphics::changeTextColor (textGraphics::colors::BRIGHT_WHITE, world.tiles[index]->ownerIndex + 1);
+            } else {
+                textGraphics::changeTextColor (textGraphics::colors::BRIGHT_WHITE, textGraphics::colors::BLACK);
+            }
+
+            if (unitIsAtPosition (i, j)) {
+                int unit_index = getUnitIndexAtPosition (i, j);
+                std::cout << units [unit_index]->render_icon;
+            } else {
+                std::cout << world.tiles [index]->render_character;
+            }
+        }
+        std::cout << "\n";
+    }
+    textGraphics::changeTextColor (textGraphics::colors::WHITE, textGraphics::colors::BLACK);
+}
+
 void Game::interactWithUnits (int civilization_index) {
     std::vector <int> unit_indices;
 
@@ -102,7 +128,8 @@ void Game::interactWithUnits (int civilization_index) {
         int owned_unit_count = 0;
 
         if (units [j]->owner_index == civilization_index) {
-            std::cout << owned_unit_count << ": " << units [j]->name << " - " << units [j]->x << ", "
+            std::cout << owned_unit_count << ": " << units [j]->name << " - ("
+                << units [j]->render_icon << ") | " << units [j]->x << ", "
                 << units [j]->y << " | MOVEMENT LEFT : " << units [j]->movement_points << std::endl;
             owned_unit_count++;
             unit_indices.push_back (j);
@@ -119,25 +146,34 @@ void Game::interactWithUnits (int civilization_index) {
         std::cin >> which_one;
 
         while (units [unit_indices[which_one]]->movement_points > 0) {
-            std::cout << "[1] move down [2] move right [3] move up [4] move left" << std::endl;
+            std::cout << "[1] move down [2] move right [3] move up [4] move left [5] end movement" << std::endl;
 
             int direction;
             std::cin >> direction;
 
-            if (direction == 1 && units [unit_indices[which_one]]->x < world.map_size) {
+            int unit_x = units [unit_indices[which_one]]->x;
+            int unit_y = units [unit_indices[which_one]]->y;
+            if (direction == 1 && unit_x < world.map_size
+                && !unitIsAtPosition (unit_x + 1, unit_y)) {
                 units [unit_indices[which_one]]->move (world, 1, 0);
             }
 
-            if (direction == 2 && units [unit_indices[which_one]]->y < world.map_size) {
+            if (direction == 2 && unit_y < world.map_size
+                && !unitIsAtPosition (unit_x, unit_y + 1)) {
                 units [unit_indices[which_one]]->move (world, 0, 1);
             }
 
-            if (direction == 3 && units [unit_indices[which_one]]->x > 0) {
+            if (direction == 3 && unit_x > 0
+                && !unitIsAtPosition (unit_x - 1, unit_y)) {
                 units [unit_indices[which_one]]->move (world, -1, 0);
             }
 
-            if (direction == 4 && units [unit_indices[which_one]]->y > 0) {
+            if (direction == 4 && unit_y > 0
+                && !unitIsAtPosition (unit_x, unit_y - 1)) {
                 units [unit_indices[which_one]]->move (world, 0, -1);
+            }
+            if (direction == 5) {
+                units [unit_indices[which_one]]->movement_points = 0;
             }
         }
 
@@ -221,4 +257,24 @@ void Game::removeEliminatedCivilizations () {
             civilizations.erase (civilizations.begin () + i);
         }
     }
+}
+
+bool Game::unitIsAtPosition (int x, int y) {
+    for (int i = 0; i < units.size (); i++) {
+        if (units [i]->x == x && units [i]->y == y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int Game::getUnitIndexAtPosition (int x, int y) {
+    for (int i = 0; i < units.size (); i++) {
+        if (units [i]->x == x && units [i]->y == y) {
+            return i;
+        }
+    }
+
+    int UNIT_NOT_FOUND = -1;
+    return UNIT_NOT_FOUND;
 }

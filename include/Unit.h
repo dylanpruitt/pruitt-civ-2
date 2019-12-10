@@ -30,6 +30,8 @@ class Unit
 
         bool is_founding_city = false;
 
+        char render_icon = '@';
+
         void move (worldMap &world, int delta_x, int delta_y);
 
         virtual void action (worldMap &world, std::vector <Unit*> &units);

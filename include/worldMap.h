@@ -15,8 +15,6 @@ class worldMap
 
         std::vector <Tile*> tiles;
 
-        void render ();
-
         int map_size = 0;
 
     private:

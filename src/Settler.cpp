@@ -3,7 +3,9 @@
 
 Settler::Settler()
 {
+    name = "Settler";
     production_cost = 5;
+    render_icon = 'S';
 }
 
 Settler::~Settler()

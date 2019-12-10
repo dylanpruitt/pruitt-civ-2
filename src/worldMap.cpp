@@ -18,30 +18,12 @@ worldMap::~worldMap()
     //dtor
 }
 
-void worldMap::render () {
-    for (int i = 0; i < map_size; i++) {
-        for (int j = 0; j < map_size; j++) {
-            int index = i + j * map_size;
-            int NOT_OWNED_BY_CIVILIZATION = -1;
-            if (tiles[index]->ownerIndex != NOT_OWNED_BY_CIVILIZATION) {
-                textGraphics::changeTextColor (textGraphics::colors::BRIGHT_WHITE, tiles[index]->ownerIndex + 1);
-            } else {
-                textGraphics::changeTextColor (textGraphics::colors::BRIGHT_WHITE, textGraphics::colors::BLACK);
-            }
-            std::cout << tiles[index]->render_character;
-        }
-        std::cout << "\n";
-    }
-    textGraphics::changeTextColor (textGraphics::colors::WHITE, textGraphics::colors::BLACK);
-}
-
 void worldMap::generate (int map_size) {
 
     for (int i = 0; i < map_size * map_size; i++) {
         tiles.push_back (new PlainsTile ());
     }
 
-    render ();
     srand (time (NULL));
 
     int number_of_forest_tiles = rand () % ((map_size * map_size / 4) - 1) + 1;

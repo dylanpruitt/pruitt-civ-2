@@ -16,6 +16,8 @@ struct Civilization
 
         int colorCode;
 
+        int production = 0;
+
 };
 
 #endif // CIVILIZATION_H

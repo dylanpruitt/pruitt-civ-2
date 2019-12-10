@@ -22,6 +22,8 @@ class Game
 
         worldMap world;
 
+        void render ();
+
         void interactWithUnits (int civilization_index);
 
         void displayCivilizationInformation ();
@@ -33,6 +35,10 @@ class Game
         void updateCapturedCities ();
 
         void removeEliminatedCivilizations ();
+
+        bool unitIsAtPosition (int x, int y);
+
+        int getUnitIndexAtPosition (int x, int y);
 };
 
 #endif // GAME_H
