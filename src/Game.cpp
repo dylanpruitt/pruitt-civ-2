@@ -87,6 +87,9 @@ void Game::loop () {
         }
 
         foundNewCities ();
+        updateCapturedCities ();
+
+        removeEliminatedCivilizations ();
     }
 }
 
@@ -189,4 +192,33 @@ void Game::foundNewCities () {
     }
 
     units.swap (remaining_units);
+}
+
+void Game::updateCapturedCities () {
+    for (int i = 0; i < civilizations.size (); i++) {
+        for (int j = 0; j < civilizations [i].cities.size (); j++) {
+            int city_x = civilizations [i].cities [j].x, city_y = civilizations [i].cities [j].y;
+            if (world.tiles [city_x + city_y * world.map_size]->ownerIndex != i) {
+                int new_owner_index = world.tiles [city_x + city_y * world.map_size]->ownerIndex;
+                City captured_city = civilizations [i].cities [j];
+                captured_city.owner_index = new_owner_index;
+
+                civilizations [new_owner_index].cities.push_back (captured_city);
+                civilizations [i].cities.erase (civilizations [i].cities.begin () + j);
+            }
+        }
+    }
+}
+
+void Game::removeEliminatedCivilizations () {
+    for (int i = 0; i < civilizations.size (); i++) {
+        if (civilizations [i].cities.size () == 0) {
+            for (int j = 0; j < world.tiles.size (); j++) {
+                if (world.tiles [j]->ownerIndex == i) {
+                    world.tiles [j]->ownerIndex = -1;
+                }
+            }
+            civilizations.erase (civilizations.begin () + i);
+        }
+    }
 }

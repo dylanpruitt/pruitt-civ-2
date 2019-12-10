@@ -29,6 +29,10 @@ class Game
         int getPercentageOfWorldControlled (int civilization_index);
 
         void foundNewCities ();
+
+        void updateCapturedCities ();
+
+        void removeEliminatedCivilizations ();
 };
 
 #endif // GAME_H

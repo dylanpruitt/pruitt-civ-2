@@ -84,7 +84,7 @@
 	<time.h>
 	"Game.h"
 
-1575996906 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
+1575998960 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
 	"Civilization.h"
 	"Unit.h"
 	"worldMap.h"
@@ -117,7 +117,7 @@
 
 1575850074 c:\users\dylan\documents\programming projects 2019\simple-civ\include\citytile.h
 
-1575997083 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
+1575999006 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
 	"Game.h"
 	<iostream>
 	<time.h>
@@ -158,4 +158,10 @@
 1575849608 c:\users\dylan\documents\programming projects 2019\simple-civ\include\foresttile.h
 
 1575849603 c:\users\dylan\documents\programming projects 2019\simple-civ\include\plainstile.h
+
+1575997733 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\scout.cpp
+	"Scout.h"
+
+1575997684 c:\users\dylan\documents\programming projects 2019\simple-civ\include\scout.h
+	"Unit.h"
 
