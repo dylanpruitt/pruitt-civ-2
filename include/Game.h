@@ -26,6 +26,8 @@ class Game
 
         void interactWithUnits (int civilization_index);
 
+        void produceUnits (int civilization_index);
+
         void displayCivilizationInformation ();
 
         int getPercentageOfWorldControlled (int civilization_index);

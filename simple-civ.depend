@@ -84,7 +84,7 @@
 	<time.h>
 	"Game.h"
 
-1576014722 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
+1576015774 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
 	"Civilization.h"
 	"Unit.h"
 	"worldMap.h"
@@ -163,5 +163,11 @@
 	"Scout.h"
 
 1575997684 c:\users\dylan\documents\programming projects 2019\simple-civ\include\scout.h
+	"Unit.h"
+
+1576016474 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\warrior.cpp
+	"Warrior.h"
+
+1576016021 c:\users\dylan\documents\programming projects 2019\simple-civ\include\warrior.h
 	"Unit.h"
 

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <time.h>
 #include "Settler.h"
+#include "Scout.h"
+#include "Warrior.h"
 #include "textGraphics.h"
 #include "worldMap.h"
 
@@ -68,9 +70,9 @@ void Game::loop () {
 
                 if (input == 'u') {
                     interactWithUnits (i);
-                }
-
-                if (input == 'e') {
+                } else if (input == 'p') {
+                    produceUnits (i);
+                } else if (input == 'e') {
                     civilization_still_playing = false;
                 }
             }
@@ -123,9 +125,9 @@ void Game::interactWithUnits (int civilization_index) {
     std::vector <int> unit_indices;
 
     std::cout << "UNITS" << std::endl;
+    int owned_unit_count = 0;
 
     for (unsigned int j = 0; j < units.size (); j++) {
-        int owned_unit_count = 0;
 
         if (units [j]->owner_index == civilization_index) {
             std::cout << owned_unit_count << ": " << units [j]->name << " - ("
@@ -185,6 +187,55 @@ void Game::interactWithUnits (int civilization_index) {
 
             units [unit_indices[which_one]]->action (world, units);
         }
+}
+
+void Game::produceUnits (int civilization_index) {
+    std::cout << "PRODUCTION" << std::endl;
+
+    bool still_producing = true;
+    std::vector <Unit*> units_for_production;
+    units_for_production.push_back (new Scout ());
+    units_for_production.push_back (new Warrior ());
+    units_for_production.push_back (new Settler ());
+
+    while (still_producing) {
+        std::cout << "Your civilization has " << civilizations [civilization_index].production << " production saved up." << std::endl;
+        std::cout << "Produce...\nUnit (Production Cost)" << std::endl;
+        for (int i = 0; i < units_for_production.size (); i++) {
+            std::cout << "[" << i << "] " << units_for_production [i]->name << " (" << units_for_production [i]->production_cost << ")" << std::endl;
+        }
+        std::cout << "[" << units_for_production.size () << "] - Quit producing" << std::endl;
+
+        int unit_index = 0;
+        std::cin >> unit_index;
+
+        if (unit_index == units_for_production.size ()) {
+            still_producing = false;
+        } else if (unit_index >= 0 && unit_index < units_for_production.size () && civilizations [civilization_index].cities.size () >= 1) {
+            if (civilizations [civilization_index].production < units_for_production [unit_index]->production_cost) {
+                std::cout << "You can't produce that!" << std::endl;
+            } else {
+                civilizations [civilization_index].production -= units_for_production [unit_index]->production_cost;
+
+                std::cout << "Produce unit in which city?" << std::endl;
+                for (int j = 0; j < civilizations [civilization_index].cities.size (); j++) {
+                    City city = civilizations [civilization_index].cities [j];
+                    std::cout << "[" << j << "] " << city.name << " (" << city.x << ", " << city.y << ")" << std::endl;
+                }
+
+                int city_index = 0;
+                std::cin >> city_index;
+
+                if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()) {
+                    Unit* unit = units_for_production [unit_index];
+                    unit->owner_index = civilization_index;
+                    unit->x = civilizations [civilization_index].cities [city_index].x;
+                    unit->y = civilizations [civilization_index].cities [city_index].y;
+                    units.push_back (unit);
+                }
+            }
+        }
+    }
 }
 
 void Game::displayCivilizationInformation () {
