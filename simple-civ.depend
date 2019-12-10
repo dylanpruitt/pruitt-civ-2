@@ -1,0 +1,161 @@
+# depslib dependency file v1.0
+1575827167 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\textgraphics.cpp
+	"textGraphics.h"
+	<windows.h>
+
+1575827124 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\textgraphics.h
+
+1575987956 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\main.cpp
+	<iostream>
+	<time.h>
+	"Game.h"
+
+1575862779 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\worldmap.cpp
+	"worldMap.h"
+	"textGraphics.h"
+	"CityTile.h"
+	"MountainTile.h"
+	"ForestTile.h"
+	"PlainsTile.h"
+	<iostream>
+	<random>
+	<time.h>
+
+1575850965 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\worldmap.h
+	<vector>
+	"Tile.h"
+
+1575911797 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\tile.h
+
+1575849597 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\mountaintile.h
+
+1575849608 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\foresttile.h
+
+1575849603 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\plainstile.h
+
+1575850074 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\citytile.h
+
+1575996531 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\city.cpp
+	<random>
+	<iostream>
+	<math.h>
+	"City.h"
+	"CityTile.h"
+
+1575987967 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\city.h
+	<string>
+	"worldMap.h"
+
+1575858809 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\civilization.h
+	<vector>
+	"City.h"
+
+1575992342 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\unit.cpp
+	"Unit.h"
+	<iostream>
+
+1575989354 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\unit.h
+	<string>
+	<vector>
+	"worldMap.h"
+
+1575996906 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\game.h
+	"Civilization.h"
+	"Unit.h"
+	"worldMap.h"
+
+1575992729 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\settler.cpp
+	"Settler.h"
+	<iostream>
+
+1575989353 c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\include\settler.h
+	"Unit.h"
+
+1575997083 source:c:\users\dylan\documents\programming projects 2019\text_based_rpg\simple-civ\src\game.cpp
+	"Game.h"
+	<iostream>
+	<time.h>
+	"Settler.h"
+	"textGraphics.h"
+	"worldMap.h"
+
+1575987956 source:c:\users\dylan\documents\programming projects 2019\simple-civ\main.cpp
+	<iostream>
+	<time.h>
+	"Game.h"
+
+1575996906 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
+	"Civilization.h"
+	"Unit.h"
+	"worldMap.h"
+
+1575858809 c:\users\dylan\documents\programming projects 2019\simple-civ\include\civilization.h
+	<vector>
+	"City.h"
+
+1575987967 c:\users\dylan\documents\programming projects 2019\simple-civ\include\city.h
+	<string>
+	"worldMap.h"
+
+1575850965 c:\users\dylan\documents\programming projects 2019\simple-civ\include\worldmap.h
+	<vector>
+	"Tile.h"
+
+1575911797 c:\users\dylan\documents\programming projects 2019\simple-civ\include\tile.h
+
+1575989354 c:\users\dylan\documents\programming projects 2019\simple-civ\include\unit.h
+	<string>
+	<vector>
+	"worldMap.h"
+
+1575996531 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\city.cpp
+	<random>
+	<iostream>
+	<math.h>
+	"City.h"
+	"CityTile.h"
+
+1575850074 c:\users\dylan\documents\programming projects 2019\simple-civ\include\citytile.h
+
+1575997083 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
+	"Game.h"
+	<iostream>
+	<time.h>
+	"Settler.h"
+	"textGraphics.h"
+	"worldMap.h"
+
+1575989353 c:\users\dylan\documents\programming projects 2019\simple-civ\include\settler.h
+	"Unit.h"
+
+1575827124 c:\users\dylan\documents\programming projects 2019\simple-civ\include\textgraphics.h
+
+1575992729 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\settler.cpp
+	"Settler.h"
+	<iostream>
+
+1575827167 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\textgraphics.cpp
+	"textGraphics.h"
+	<windows.h>
+
+1575992342 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\unit.cpp
+	"Unit.h"
+	<iostream>
+
+1575862779 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\worldmap.cpp
+	"worldMap.h"
+	"textGraphics.h"
+	"CityTile.h"
+	"MountainTile.h"
+	"ForestTile.h"
+	"PlainsTile.h"
+	<iostream>
+	<random>
+	<time.h>
+
+1575849597 c:\users\dylan\documents\programming projects 2019\simple-civ\include\mountaintile.h
+
+1575849608 c:\users\dylan\documents\programming projects 2019\simple-civ\include\foresttile.h
+
+1575849603 c:\users\dylan\documents\programming projects 2019\simple-civ\include\plainstile.h
+
