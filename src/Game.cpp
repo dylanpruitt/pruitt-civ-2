@@ -10,6 +10,7 @@
 #include "CityTile.h"
 #include "MountainTile.h"
 #include "textGraphics.h"
+#include "utility.h"
 #include "worldMap.h"
 
 Game::Game()
@@ -28,12 +29,12 @@ Game::Game()
     }
     if (loaded == false) {
         std::cout << "Input map size:";
-        std::cin >> map_size;
+        map_size = utility::integer_input ();
 
         world = worldMap (map_size);
 
         std::cout << "Input number of players:";
-        std::cin >> number_of_civilizations;
+        number_of_civilizations = utility::integer_input ();
 
         if (number_of_civilizations <= 0 || number_of_civilizations > 8) {
             number_of_civilizations = 2;
@@ -168,14 +169,12 @@ void Game::interactWithUnits (int civilization_index) {
     if (choice == 'm' && unit_indices.size () >= 1) {
         std::cout << "\nMove which unit? " << std::endl;
 
-        int which_one;
-        std::cin >> which_one;
+        int which_one = utility::integer_input ();
 
         while (units [unit_indices[which_one]]->movement_points > 0) {
             std::cout << "[1] move down [2] move right [3] move up [4] move left [5] end movement" << std::endl;
 
-            int direction;
-            std::cin >> direction;
+            int direction = utility::integer_input ();
 
             int unit_x = units [unit_indices[which_one]]->x;
             int unit_y = units [unit_indices[which_one]]->y;
@@ -207,7 +206,7 @@ void Game::interactWithUnits (int civilization_index) {
             std::cout << "\nUse which unit's special ability? " << std::endl;
 
             int which_one;
-            std::cin >> which_one;
+            which_one = utility::integer_input ();
 
             units [unit_indices[which_one]]->action (world, units);
 
@@ -239,7 +238,7 @@ void Game::produceUnits (int civilization_index) {
         std::cout << "[" << units_for_production.size () << "] - Quit producing" << std::endl;
 
         int unit_index = 0;
-        std::cin >> unit_index;
+        unit_index = utility::integer_input ();
 
         if (unit_index == units_for_production.size ()) {
             still_producing = false;
@@ -256,7 +255,7 @@ void Game::produceUnits (int civilization_index) {
                 }
 
                 int city_index = 0;
-                std::cin >> city_index;
+                city_index = utility::integer_input ();
 
                 if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()) {
                     Unit* unit = units_for_production [unit_index];

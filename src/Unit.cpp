@@ -1,6 +1,7 @@
 #include "Unit.h"
 #include <iostream>
 #include <math.h>
+#include "utility.h"
 
 Unit::Unit()
 {
@@ -42,7 +43,7 @@ void Unit::action (worldMap &world, std::vector <Unit*> &units) {
                 << enemy_unit->health << " HP" << std::endl;
         }
 
-        std::cin >> which_one;
+        which_one = utility::integer_input ();
 
         if (which_one >= 0 && which_one < valid_enemy_unit_indices.size ()) {
             attack (units [valid_enemy_unit_indices [which_one]]);

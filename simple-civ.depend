@@ -89,7 +89,7 @@
 	"Unit.h"
 	"worldMap.h"
 
-1576038044 c:\users\dylan\documents\programming projects 2019\simple-civ\include\civilization.h
+1576038153 c:\users\dylan\documents\programming projects 2019\simple-civ\include\civilization.h
 	<vector>
 	"City.h"
 
@@ -117,7 +117,7 @@
 
 1575850074 c:\users\dylan\documents\programming projects 2019\simple-civ\include\citytile.h
 
-1576038082 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
+1576078764 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
 	"Game.h"
 	<iostream>
 	<time.h>
@@ -130,6 +130,7 @@
 	"CityTile.h"
 	"MountainTile.h"
 	"textGraphics.h"
+	"utility.h"
 	"worldMap.h"
 
 1575989353 c:\users\dylan\documents\programming projects 2019\simple-civ\include\settler.h
@@ -145,10 +146,11 @@
 	"textGraphics.h"
 	<windows.h>
 
-1576019663 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\unit.cpp
+1576078861 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\unit.cpp
 	"Unit.h"
 	<iostream>
 	<math.h>
+	"utility.h"
 
 1576014825 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\worldmap.cpp
 	"worldMap.h"
@@ -178,4 +180,12 @@
 
 1576018553 c:\users\dylan\documents\programming projects 2019\simple-civ\include\warrior.h
 	"Unit.h"
+
+1576078525 c:\users\dylan\documents\programming projects 2019\simple-civ\include\utility.h
+
+1576078619 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\utility.cpp
+	"utility.h"
+	<iostream>
+	<climits>
+	<thread>
 
