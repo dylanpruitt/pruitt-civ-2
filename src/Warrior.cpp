@@ -8,14 +8,11 @@ Warrior::Warrior()
     health = 3;
     maxHealth = 3;
     combat_strength = 2;
+    production_cost = 17;
     render_icon = 'W';
 }
 
 Warrior::~Warrior()
 {
     //dtor
-}
-
-void Warrior::action (worldMap &world, std::vector <Unit*> &units) {
-
 }

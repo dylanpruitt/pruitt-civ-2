@@ -1,53 +1,71 @@
 #include "Game.h"
 #include <iostream>
 #include <time.h>
+#include <fstream>
 #include "Settler.h"
 #include "Scout.h"
 #include "Warrior.h"
+#include "PlainsTile.h"
+#include "ForestTile.h"
+#include "CityTile.h"
+#include "MountainTile.h"
 #include "textGraphics.h"
 #include "worldMap.h"
 
 Game::Game()
 {
-    std::cout << "Input map size:";
-    std::cin >> map_size;
+    std::cout << "Load game? [Y/N]" << std::endl;
 
-    world = worldMap (map_size);
+    std::string input;
+    std::cin >> input;
 
-    std::cout << "Input number of players:";
-    std::cin >> number_of_civilizations;
+    if (input == "Y") {
+        std::cout << "Enter a filename to load from: ";
+        std::string file_name;
+        std::cin >> file_name;
 
-    if (number_of_civilizations <= 0 || number_of_civilizations > 8) {
-        number_of_civilizations = 2;
+        load_game (file_name);
     }
+    if (loaded == false) {
+        std::cout << "Input map size:";
+        std::cin >> map_size;
 
-    for (int i = 0; i < number_of_civilizations; i++) {
-        civilizations.push_back (Civilization ());
-        std::cout << "Enter player " << i << " name:";
-        std::cin >> civilizations[i].name;
+        world = worldMap (map_size);
 
-        int x = 0, y = 0;
-        bool spawning = true;
+        std::cout << "Input number of players:";
+        std::cin >> number_of_civilizations;
 
-        while (spawning) {
-            x = rand () % (map_size - 2) + 1;
-            y = rand () % (map_size - 2) + 1;
-            if (world.tiles [x + y * map_size]->ownerIndex == -1) {
-                spawning = false;
-            }
+        if (number_of_civilizations <= 0 || number_of_civilizations > 8) {
+            number_of_civilizations = 2;
         }
 
-        City city (x, y, i, world);
-        city.name = civilizations [i].name;
-        civilizations [i].cities.push_back (city);
+        for (int i = 0; i < number_of_civilizations; i++) {
+            civilizations.push_back (Civilization ());
+            std::cout << "Enter player " << i << " name:";
+            std::cin >> civilizations[i].name;
 
-        Settler* settler = new Settler ();
-        settler->x = x;
-        settler->y = y;
-        settler->owner_index = i;
-        units.push_back (settler);
+            int x = 0, y = 0;
+            bool spawning = true;
+
+            while (spawning) {
+                x = rand () % (map_size - 2) + 1;
+                y = rand () % (map_size - 2) + 1;
+                if (world.tiles [x + y * map_size]->ownerIndex == -1) {
+                    spawning = false;
+                }
+            }
+
+            City city (x, y, i, world);
+            city.name = civilizations [i].name;
+            civilizations [i].cities.push_back (city);
+
+            Settler* settler = new Settler ();
+            settler->x = x;
+            settler->y = y;
+            settler->owner_index = i;
+            units.push_back (settler);
+        }
     }
-
 }
 
 Game::~Game()
@@ -72,6 +90,12 @@ void Game::loop () {
                     interactWithUnits (i);
                 } else if (input == 'p') {
                     produceUnits (i);
+                } else if (input == 's') {
+                    std::cout << "Enter a filename to save to: ";
+                    std::string file_name;
+                    std::cin >> file_name;
+
+                    save_game (file_name);
                 } else if (input == 'e') {
                     civilization_still_playing = false;
                 }
@@ -186,6 +210,14 @@ void Game::interactWithUnits (int civilization_index) {
             std::cin >> which_one;
 
             units [unit_indices[which_one]]->action (world, units);
+
+            std::vector <Unit*> alive_units;
+            for (int i = 0; i < units.size (); i++) {
+                if (units [i]->health > 0) {
+                    alive_units.push_back (units [i]);
+                }
+            }
+            units.swap (alive_units);
         }
 }
 
@@ -228,6 +260,7 @@ void Game::produceUnits (int civilization_index) {
 
                 if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()) {
                     Unit* unit = units_for_production [unit_index];
+                    std::cout << unit->name << " was produced." << std::endl;
                     unit->owner_index = civilization_index;
                     unit->x = civilizations [civilization_index].cities [city_index].x;
                     unit->y = civilizations [civilization_index].cities [city_index].y;
@@ -328,4 +361,153 @@ int Game::getUnitIndexAtPosition (int x, int y) {
 
     int UNIT_NOT_FOUND = -1;
     return UNIT_NOT_FOUND;
+}
+
+void Game::load_game (std::string filename) {
+    std::string line;
+    std::ifstream file (filename);
+
+    if (file.is_open()) {
+        loaded = true;
+        file >> world.map_size;
+        for (int i = 0; i < world.map_size * world.map_size; i++) {
+            char render_character;
+            Tile* tile;
+            file >> render_character;
+
+            if (render_character == ',') {
+                tile = new PlainsTile ();
+            } else if (render_character == '*') {
+                tile = new ForestTile ();
+            } else if (render_character == '^') {
+                tile = new MountainTile ();
+            } else if (render_character == '!') {
+                tile = new CityTile ();
+            }
+            file >> tile->ownerIndex;
+
+            world.tiles.push_back (tile);
+        }
+
+        int unit_size = 0;
+        file >> unit_size;
+        for (int i = 0; i < unit_size; i++) {
+            char render_character;
+            Unit* unit;
+            file >> render_character;
+
+            if (render_character == 'S') {
+                unit = new Settler ();
+            } else if (render_character == 'W') {
+                unit = new Warrior ();
+            } else if (render_character == '>') {
+                unit = new Scout ();
+            }
+            file >> unit->owner_index;
+
+            file >> unit->x;
+            file >> unit->y;
+
+            file >> unit->health;
+            file >> unit->maxHealth;
+            file >> unit->combat_strength;
+            units.push_back (unit);
+        }
+
+        int civilization_size = 0;
+        file >> civilization_size;
+        for (int i = 0; i < civilization_size; i++) {
+            Civilization civilization;
+
+            file >> civilization.name;
+            file >> civilization.production;
+
+            int city_size = 0;
+            file >> city_size;
+            for (unsigned int j = 0; j < city_size; j++) {
+                int owner_index = 0;
+                file >> owner_index;
+
+                int x = 0, y = 0;
+                file >> x;
+                file >> y;
+
+                City city (x, y, owner_index, world);
+                file >> city.name;
+
+                file >> city.population;
+                file >> city.food_stockpile;
+
+                file >> city.total_food_yield;
+                file >> city.total_production_yield;
+
+                civilization.cities.push_back (city);
+            }
+
+            civilizations.push_back (civilization);
+        }
+
+        file.close();
+
+    } else std::cout << "Can't open file.\n";
+
+}
+
+void Game::save_game (std::string filename) {
+
+    std::string line;
+    std::ofstream file (filename);
+
+    if (file.is_open()) {
+        file << world.map_size << "\n";
+        for (int i = 0; i < world.map_size * world.map_size; i++) {
+            file << world.tiles [i]->render_character << "\n";
+            file << world.tiles [i]->ownerIndex << "\n";
+        }
+
+        file << units.size() << "\n";
+        for (int i = 0; i < units.size(); i++) {
+            file << units [i]->render_icon << "\n";
+            file << units [i]->owner_index << "\n";
+
+            file << units [i]->x << "\n";
+            file << units [i]->y << "\n";
+
+            file << units [i]->health << "\n";
+            file << units [i]->maxHealth << "\n";
+            file << units [i]->combat_strength << "\n";
+        }
+
+        file << civilizations.size() << "\n";
+
+        for (int i = 0; i < civilizations.size(); i++) {
+            Civilization civilization = civilizations [i];
+
+            file << civilization.name << "\n";
+            file << civilization.production << "\n";
+
+            file << civilization.cities.size() << "\n";
+            for (unsigned int j = 0; j < civilization.cities.size(); j++) {
+                City city = civilization.cities [j];
+
+                file << city.owner_index << "\n";
+
+                file << city.x << "\n";
+                file << city.y << "\n";
+
+                file << city.name << "\n";
+
+                file << city.population << "\n";
+                file << city.food_stockpile << "\n";
+
+                file << city.total_food_yield << "\n";
+                file << city.total_production_yield << "\n";
+
+            }
+
+        }
+
+        file.close();
+
+    }
 }

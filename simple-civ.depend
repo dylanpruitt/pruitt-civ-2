@@ -84,12 +84,12 @@
 	<time.h>
 	"Game.h"
 
-1576015774 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
+1576022722 c:\users\dylan\documents\programming projects 2019\simple-civ\include\game.h
 	"Civilization.h"
 	"Unit.h"
 	"worldMap.h"
 
-1576005557 c:\users\dylan\documents\programming projects 2019\simple-civ\include\civilization.h
+1576020241 c:\users\dylan\documents\programming projects 2019\simple-civ\include\civilization.h
 	<vector>
 	"City.h"
 
@@ -103,7 +103,7 @@
 
 1575911797 c:\users\dylan\documents\programming projects 2019\simple-civ\include\tile.h
 
-1576014307 c:\users\dylan\documents\programming projects 2019\simple-civ\include\unit.h
+1576019779 c:\users\dylan\documents\programming projects 2019\simple-civ\include\unit.h
 	<string>
 	<vector>
 	"worldMap.h"
@@ -117,11 +117,18 @@
 
 1575850074 c:\users\dylan\documents\programming projects 2019\simple-civ\include\citytile.h
 
-1576014896 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
+1576022680 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\game.cpp
 	"Game.h"
 	<iostream>
 	<time.h>
+	<fstream>
 	"Settler.h"
+	"Scout.h"
+	"Warrior.h"
+	"PlainsTile.h"
+	"ForestTile.h"
+	"CityTile.h"
+	"MountainTile.h"
 	"textGraphics.h"
 	"worldMap.h"
 
@@ -130,7 +137,7 @@
 
 1575827124 c:\users\dylan\documents\programming projects 2019\simple-civ\include\textgraphics.h
 
-1576014985 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\settler.cpp
+1576019784 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\settler.cpp
 	"Settler.h"
 	<iostream>
 
@@ -138,9 +145,10 @@
 	"textGraphics.h"
 	<windows.h>
 
-1575992342 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\unit.cpp
+1576019663 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\unit.cpp
 	"Unit.h"
 	<iostream>
+	<math.h>
 
 1576014825 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\worldmap.cpp
 	"worldMap.h"
@@ -165,9 +173,9 @@
 1575997684 c:\users\dylan\documents\programming projects 2019\simple-civ\include\scout.h
 	"Unit.h"
 
-1576016474 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\warrior.cpp
+1576019809 source:c:\users\dylan\documents\programming projects 2019\simple-civ\src\warrior.cpp
 	"Warrior.h"
 
-1576016021 c:\users\dylan\documents\programming projects 2019\simple-civ\include\warrior.h
+1576018553 c:\users\dylan\documents\programming projects 2019\simple-civ\include\warrior.h
 	"Unit.h"
 

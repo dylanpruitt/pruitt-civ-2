@@ -4,7 +4,7 @@
 Settler::Settler()
 {
     name = "Settler";
-    production_cost = 5;
+    production_cost = 25;
     render_icon = 'S';
 }
 

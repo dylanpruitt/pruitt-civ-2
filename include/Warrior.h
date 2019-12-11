@@ -8,7 +8,6 @@ class Warrior : public Unit
         Warrior();
         virtual ~Warrior();
 
-        void action (worldMap &world, std::vector <Unit*> &units);
     protected:
 
     private:

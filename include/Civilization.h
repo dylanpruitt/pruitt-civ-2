@@ -10,11 +10,7 @@ struct Civilization
 
         std::vector <City> cities;
 
-        int WorldExplorationMap[50][200];
-
         bool playedByHumans = false;
-
-        int colorCode;
 
         int production = 0;
 

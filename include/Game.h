@@ -17,6 +17,8 @@ class Game
         int map_size = 25;
         int number_of_civilizations = 2;
 
+        bool loaded = false;
+
         std::vector <Civilization> civilizations;
         std::vector <Unit*> units;
 
@@ -41,6 +43,10 @@ class Game
         bool unitIsAtPosition (int x, int y);
 
         int getUnitIndexAtPosition (int x, int y);
+
+        void load_game (std::string filename);
+
+        void save_game (std::string filename);
 };
 
 #endif // GAME_H
