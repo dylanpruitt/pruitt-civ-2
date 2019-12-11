@@ -266,6 +266,12 @@ void Game::produceUnits (int civilization_index) {
                     unit->y = civilizations [civilization_index].cities [city_index].y;
                     units.push_back (unit);
                 }
+
+                units_for_production.clear ();
+
+                units_for_production.push_back (new Scout ());
+                units_for_production.push_back (new Warrior ());
+                units_for_production.push_back (new Settler ());
             }
         }
     }
