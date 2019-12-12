@@ -47,6 +47,7 @@
 		<Unit filename="include/Unit.h" />
 		<Unit filename="include/Warrior.h" />
 		<Unit filename="include/textGraphics.h" />
+		<Unit filename="include/utility.h" />
 		<Unit filename="include/worldMap.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/City.cpp" />
@@ -56,6 +57,7 @@
 		<Unit filename="src/Unit.cpp" />
 		<Unit filename="src/Warrior.cpp" />
 		<Unit filename="src/textGraphics.cpp" />
+		<Unit filename="src/utility.cpp" />
 		<Unit filename="src/worldMap.cpp" />
 		<Extensions>
 			<code_completion />

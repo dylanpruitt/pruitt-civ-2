@@ -12,6 +12,7 @@ class Settler : public Unit
     protected:
 
     private:
+        int get_distance_of_closest_city (worldMap &world);
 };
 
 #endif // SETTLER_H

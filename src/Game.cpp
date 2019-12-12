@@ -141,9 +141,9 @@ void Game::render () {
                 std::cout << world.tiles [index]->render_character;
             }
         }
+        textGraphics::changeTextColor (textGraphics::colors::WHITE, textGraphics::colors::BLACK);
         std::cout << "\n";
     }
-    textGraphics::changeTextColor (textGraphics::colors::WHITE, textGraphics::colors::BLACK);
 }
 
 void Game::interactWithUnits (int civilization_index) {
@@ -178,12 +178,12 @@ void Game::interactWithUnits (int civilization_index) {
 
             int unit_x = units [unit_indices[which_one]]->x;
             int unit_y = units [unit_indices[which_one]]->y;
-            if (direction == 1 && unit_x < world.map_size
+            if (direction == 1 && unit_x < world.map_size - 1
                 && !unitIsAtPosition (unit_x + 1, unit_y)) {
                 units [unit_indices[which_one]]->move (world, 1, 0);
             }
 
-            if (direction == 2 && unit_y < world.map_size
+            if (direction == 2 && unit_y < world.map_size - 1
                 && !unitIsAtPosition (unit_x, unit_y + 1)) {
                 units [unit_indices[which_one]]->move (world, 0, 1);
             }
