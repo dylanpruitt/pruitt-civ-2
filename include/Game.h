@@ -40,6 +40,8 @@ class Game
 
         void removeEliminatedCivilizations ();
 
+        void cleanupRemainingCivilizations (int eliminated_civilization_index);
+
         bool unitIsAtPosition (int x, int y);
 
         int getUnitIndexAtPosition (int x, int y);

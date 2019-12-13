@@ -28,9 +28,12 @@ Game::Game()
         load_game (file_name);
     }
     if (loaded == false) {
-        std::cout << "Input map size:";
+        std::cout << "Input map size (8 - 40):";
         map_size = utility::integer_input ();
 
+        if (map_size < 8 || map_size > 40) {
+            map_size = 16;
+        }
         world = worldMap (map_size);
 
         std::cout << "Input number of players:";
@@ -336,16 +339,45 @@ void Game::updateCapturedCities () {
 }
 
 void Game::removeEliminatedCivilizations () {
+    std::vector <Civilization> remaining_civilizations;
+    std::vector <int> eliminated_civilization_indices;
     for (int i = 0; i < civilizations.size (); i++) {
         if (civilizations [i].cities.size () == 0) {
+            eliminated_civilization_indices.push_back (i);
             for (int j = 0; j < world.tiles.size (); j++) {
                 if (world.tiles [j]->ownerIndex == i) {
                     world.tiles [j]->ownerIndex = -1;
                 }
             }
-            civilizations.erase (civilizations.begin () + i);
+        } else {
+            remaining_civilizations.push_back (civilizations [i]);
         }
     }
+
+    civilizations.swap (remaining_civilizations);
+    for (int i = 0; i < eliminated_civilization_indices.size (); i++) {
+        cleanupRemainingCivilizations (eliminated_civilization_indices [i] - i);
+    }
+}
+
+void Game::cleanupRemainingCivilizations (int eliminated_civilization_index) {
+    for (int i = 0; i < world.tiles.size (); i++) {
+        if (world.tiles [i]->ownerIndex > eliminated_civilization_index) {
+            world.tiles [i]->ownerIndex -= 1;
+        }
+    }
+
+    std::vector <Unit*> remaining_units;
+    for (int i = 0; i < units.size (); i++) {
+        if (units [i]->owner_index != eliminated_civilization_index) {
+            remaining_units.push_back (units [i]);
+        }
+        if (units [i]->owner_index > eliminated_civilization_index) {
+            units [i]->owner_index -= 1;
+        }
+    }
+
+    units.swap (remaining_units);
 }
 
 bool Game::unitIsAtPosition (int x, int y) {
