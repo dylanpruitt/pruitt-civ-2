@@ -251,16 +251,26 @@ void Game::produceUnits (int civilization_index) {
             } else {
                 civilizations [civilization_index].production -= units_for_production [unit_index]->production_cost;
 
-                std::cout << "Produce unit in which city?" << std::endl;
+                std::vector <int> valid_indices;
+
                 for (int j = 0; j < civilizations [civilization_index].cities.size (); j++) {
-                    City city = civilizations [civilization_index].cities [j];
+                    int city_x = civilizations [civilization_index].cities [j].x, city_y = civilizations [civilization_index].cities [j].y;
+                    if (world.tiles [city_x + city_y * world.map_size]->ownerIndex == civilization_index) {
+                        valid_indices.push_back (j);
+                    }
+                }
+                std::cout << "Produce unit in which city?" << std::endl;
+                for (int j = 0; j < valid_indices.size (); j++) {
+                    City city = civilizations [civilization_index].cities [valid_indices [j]];
                     std::cout << "[" << j << "] " << city.name << " (" << city.x << ", " << city.y << ")" << std::endl;
                 }
 
                 int city_index = 0;
-                city_index = utility::integer_input ();
+                city_index = valid_indices [utility::integer_input ()];
+                int city_x = civilizations [civilization_index].cities [city_index].x, city_y = civilizations [civilization_index].cities [city_index].y;
 
-                if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()) {
+                if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()
+                    && world.tiles [city_x + city_y * world.map_size]->ownerIndex == civilization_index) {
                     Unit* unit = units_for_production [unit_index];
                     std::cout << unit->name << " was produced." << std::endl;
                     unit->owner_index = civilization_index;
