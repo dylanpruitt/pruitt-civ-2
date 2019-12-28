@@ -265,8 +265,13 @@ void Game::produceUnits (int civilization_index) {
                     std::cout << "[" << j << "] " << city.name << " (" << city.x << ", " << city.y << ")" << std::endl;
                 }
 
+                int input = utility::integer_input ();
+                if (input < 0 || input > valid_indices.size () - 1) {
+                    input = 0;
+                }
+
                 int city_index = 0;
-                city_index = valid_indices [utility::integer_input ()];
+                city_index = valid_indices [input];
                 int city_x = civilizations [civilization_index].cities [city_index].x, city_y = civilizations [civilization_index].cities [city_index].y;
 
                 if (city_index >= 0 && city_index < civilizations [civilization_index].cities.size ()
